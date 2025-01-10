@@ -74,11 +74,11 @@ class ReportsWindow:
         for sale in sales:
             report += f"Sale ID: {sale.sale_id}\n"
             report += f"Time: {sale.date}\n"
-            report += f"Amount: ${sale.total_amount:.2f}\n"
+            report += f"Amount: £{sale.total_amount:.2f}\n"
             report += "-" * 40 + "\n"
             total_revenue += sale.total_amount
         
-        report += f"\nTotal Daily Revenue: ${total_revenue:.2f}"
+        report += f"\nTotal Daily Revenue: £{total_revenue:.2f}"
         self.report_text.insert(tk.END, report)
     
     def generate_monthly_sales_report(self):
@@ -96,9 +96,9 @@ class ReportsWindow:
             total_revenue += sale.total_amount
         
         for date, amount in sorted(daily_totals.items()):
-            report += f"{date}: ${amount:.2f}\n"
-        
-        report += f"\nTotal Monthly Revenue: ${total_revenue:.2f}"
+            report += f"{date}: £{amount:.2f}\n"
+
+        report += f"\nTotal Monthly Revenue: £{total_revenue:.2f}"
         self.report_text.insert(tk.END, report)
     
     def generate_inventory_report(self):
@@ -112,11 +112,11 @@ class ReportsWindow:
             total_value += value
             report += f"Item: {item.item_name}\n"
             report += f"Quantity: {item.quantity}\n"
-            report += f"Unit Cost: ${item.cost:.2f}\n"
-            report += f"Total Value: ${value:.2f}\n"
+            report += f"Unit Cost: £{item.cost:.2f}\n"
+            report += f"Total Value: £{value:.2f}\n"
             report += "-" * 40 + "\n"
         
-        report += f"\nTotal Inventory Value: ${total_value:.2f}"
+        report += f"\nTotal Inventory Value: £{total_value:.2f}"
         self.report_text.insert(tk.END, report)
     
     def generate_low_stock_report(self):
@@ -153,12 +153,12 @@ class ReportsWindow:
         total_revenue = sum(daily_revenue.values())
         avg_daily_revenue = total_revenue / len(daily_revenue) if daily_revenue else 0
         
-        report += f"Total Revenue: ${total_revenue:.2f}\n"
-        report += f"Average Daily Revenue: ${avg_daily_revenue:.2f}\n\n"
+        report += f"Total Revenue: £{total_revenue:.2f}\n"
+        report += f"Average Daily Revenue: £{avg_daily_revenue:.2f}\n\n"
         report += "Daily Breakdown:\n"
         
         for date, amount in sorted(daily_revenue.items()):
-            report += f"{date}: ${amount:.2f}\n"
+            report += f"{date}: £{amount:.2f}\n"
         
         self.report_text.insert(tk.END, report)
     

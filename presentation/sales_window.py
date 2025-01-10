@@ -62,7 +62,7 @@ class SalesWindow:
         self.total_frame = ttk.Frame(self.cart_frame, padding="10")
         self.total_frame.grid(row=2, column=0, columnspan=2, sticky="nsew")
         
-        self.total_var = tk.StringVar(value="Total: $0.00")
+        self.total_var = tk.StringVar(value="Total: £0.00")
         ttk.Label(self.total_frame, textvariable=self.total_var, font=('Arial', 12, 'bold')).pack(side=tk.LEFT, padx=5)
         ttk.Button(self.total_frame, text="Complete Sale", command=self.complete_sale).pack(side=tk.RIGHT, padx=5)
     
@@ -71,7 +71,7 @@ class SalesWindow:
             self.inventory_tree.delete(item)
         
         for item in self.inventory_manager.get_all_items():
-            self.inventory_tree.insert('', 'end', values=(item.item_id, item.item_name, item.quantity, f"${item.cost:.2f}"))
+            self.inventory_tree.insert('', 'end', values=(item.item_id, item.item_name, item.quantity, f"£{item.cost:.2f}"))
     
     def add_to_cart(self):
         selected = self.inventory_tree.selection()
@@ -88,8 +88,8 @@ class SalesWindow:
             if quantity > item[2]:  # Available quantity
                 raise ValueError("Not enough items in stock")
             
-            total = quantity * float(item[3].replace('$', ''))
-            self.cart.append((item[0], item[1], quantity, float(item[3].replace('$', '')), total))
+            total = quantity * float(item[3].replace('£', ''))
+            self.cart.append((item[0], item[1], quantity, float(item[3].replace('£', '')), total))
             self.update_cart_display()
             
         except ValueError as e:
@@ -117,7 +117,7 @@ class SalesWindow:
             self.cart_tree.insert('', 'end', values=item)
             total += item[4]
         
-        self.total_var.set(f"Total: ${total:.2f}")
+        self.total_var.set(f"Total: £{total:.2f}")
     
     def complete_sale(self):
         if not self.cart:
