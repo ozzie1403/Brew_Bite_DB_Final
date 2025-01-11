@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 
+
 class InventoryWindow:
     def __init__(self, parent, inventory_manager):
         """

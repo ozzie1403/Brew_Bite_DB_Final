@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 
+
 class UsersWindow:
     def __init__(self, parent, user_manager, current_user):
         """

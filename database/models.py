@@ -6,6 +6,7 @@ from datetime import datetime
 # The base class that will be used for all models
 Base = declarative_base()
 
+
 class User(Base):
     """
     Represents a user in the system. Users can have multiple expenses, sales, and financial reports.
@@ -132,6 +133,7 @@ class SaleItem(Base):
 
     # Relationship to the Inventory model (this item corresponds to one inventory item)
     inventory_item = relationship("Inventory", back_populates="sales_items")
+
 
 class FinancialReport(Base):
     """

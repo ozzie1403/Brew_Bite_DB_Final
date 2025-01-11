@@ -5,6 +5,7 @@ import json
 
 from database.models import Sale, Inventory
 
+
 class ReportsWindow:
     def __init__(self, parent, db_handler, current_user):
         """
