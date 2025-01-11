@@ -5,7 +5,7 @@ from datetime import datetime
 class saleswindow:
     def __init__(self, parent, sales_manager, inventory_manager, current_user):
         self.window = tk.Toplevel(parent)
-        self.window.title("Sales Management")
+        self.window.title("Sales management")
         self.window.geometry("1000x600")
         
         self.sales_manager = sales_manager
@@ -53,7 +53,7 @@ class saleswindow:
         self.cart_tree.grid(row=0, column=0, columnspan=2, sticky="nsew")
         
         ttk.Button(self.cart_frame, text="Remove Selected", command=self.remove_from_cart).grid(row=1, column=0, pady=5)
-        ttk.Button(self.cart_frame, text="Clear Cart", command=self.clear_cart).grid(row=1, column=1, pady=5)
+        ttk.Button(self.cart_frame, text="Empty Cart", command=self.clear_cart).grid(row=1, column=1, pady=5)
     
     def setup_total_section(self):
         self.total_frame = ttk.Frame(self.cart_frame, padding="10")
@@ -73,24 +73,24 @@ class saleswindow:
     def add_to_cart(self):
         selected = self.inventory_tree.selection()
         if not selected:
-            messagebox.showwarning("Warning", "Please select an item to add")
+            messagebox.showwarning("Attention", "Please select an item to add")
             return
         
         try:
             quantity = int(self.quantity_var.get())
             if quantity <= 0:
-                raise ValueError("Quantity must be positive")
+                raise ValueError("Quantity must be more than 0")
             
             item = self.inventory_tree.item(selected[0])['values']
-            if quantity > item[2]:  # Available quantity
-                raise ValueError("Not enough items in stock")
+            if quantity > item[2]:
+                raise ValueError("Stock not sufficient")
             
             total = quantity * float(item[3].replace('£', ''))
             self.cart.append((item[0], item[1], quantity, float(item[3].replace('£', '')), total))
             self.update_cart_display()
             
         except ValueError as e:
-            messagebox.showerror("Error", str(e))
+            messagebox.showerror("error", str(e))
     
     def remove_from_cart(self):
         selected = self.cart_tree.selection()
@@ -118,7 +118,7 @@ class saleswindow:
     
     def complete_sale(self):
         if not self.cart:
-            messagebox.showwarning("Warning", "Cart is empty")
+            messagebox.showwarning("error", "Cart is empty")
             return
         
         try:

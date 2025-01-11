@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 import json
 from database.models import sale, inventory
 
-class ReportsWindow:
+class Reportswindow:
     def __init__(self, parent, db_handler, current_user):
         self.window = tk.Toplevel(parent)
         self.window.title("Financial Reports")

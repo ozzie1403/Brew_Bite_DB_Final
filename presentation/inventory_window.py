@@ -4,7 +4,7 @@ from tkinter import ttk, messagebox
 class InventoryWindow:
     def __init__(self, parent, inventory_manager):
         self.window = tk.Toplevel(parent)
-        self.window.title("Inventory Management")
+        self.window.title("inventory management")
         self.window.geometry("800x600")
         self.inventory_manager = inventory_manager
 
@@ -66,14 +66,14 @@ class InventoryWindow:
             self.inventory_manager.add_item(name, quantity, cost)
             self.load_inventory()
             self.clear_form()
-            messagebox.showinfo("Success", "Item added successfully!")
+            messagebox.showinfo("success", "Item added!")
         except Exception as e:
-            messagebox.showerror("Error", str(e))
+            messagebox.showerror("Fail", str(e))
     
     def update_item(self):
         selected = self.tree.selection()
         if not selected:
-            messagebox.showwarning("Warning", "Please select an item to update")
+            messagebox.showwarning("Attention", "Please select an item to update")
             return
         
         try:
@@ -81,9 +81,9 @@ class InventoryWindow:
             quantity = int(self.quantity_var.get())
             self.inventory_manager.update_quantity(item_id, quantity)
             self.load_inventory()
-            messagebox.showinfo("Success", "Item updated successfully!")
+            messagebox.showinfo("Completed", "Item updated successfully!")
         except Exception as e:
-            messagebox.showerror("Error", str(e))
+            messagebox.showerror("Attention", str(e))
     
     def delete_item(self):
         selected = self.tree.selection()
@@ -97,7 +97,7 @@ class InventoryWindow:
                 self.inventory_manager.delete_item(item_id)
                 self.load_inventory()
                 self.clear_form()
-                messagebox.showinfo("Success", "Item deleted successfully!")
+                messagebox.showinfo("Sucess", "Item deleted successfully!")
             except Exception as e:
                 messagebox.showerror("Error", str(e))
     

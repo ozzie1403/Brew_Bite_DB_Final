@@ -4,7 +4,7 @@ from tkinter import ttk, messagebox
 class userswindow:
     def __init__(self, parent, user_manager, current_user):
         self.window = tk.Toplevel(parent)
-        self.window.title("User Management")
+        self.window.title("user management")
         self.window.geometry("800x600")
         
         self.user_manager = user_manager
@@ -71,14 +71,14 @@ class userswindow:
             self.user_manager.create_user(username, password, email)
             self.load_users()
             self.clear_form()
-            messagebox.showinfo("Success", "User added successfully!")
+            messagebox.showinfo("Success", "User addition succcessful!")
         except Exception as e:
             messagebox.showerror("Error", str(e))
     
     def update_user(self):
         selected = self.tree.selection()
         if not selected:
-            messagebox.showwarning("Warning", "Please select a user to update")
+            messagebox.showwarning("Please confirm", "Select the user you want to update")
             return
         
         try:
@@ -92,19 +92,19 @@ class userswindow:
                 self.user_manager.update_user_email(user_id, email)
             
             self.load_users()
-            messagebox.showinfo("Success", "User updated successfully!")
+            messagebox.showinfo("Confirmed!", "Users updated!")
         except Exception as e:
-            messagebox.showerror("Error", str(e))
+            messagebox.showerror("Error!!", str(e))
     
     def delete_user(self):
         selected = self.tree.selection()
         if not selected:
-            messagebox.showwarning("Warning", "Please select a user to delete")
+            messagebox.showwarning("Confirmation", "Please select a user to remove")
             return
         
         user_id = self.tree.item(selected[0])['values'][0]
         if user_id == self.current_user.user_id:
-            messagebox.showerror("Error", "Cannot delete your own account")
+            messagebox.showerror("Error", "you cannot delete your own account")
             return
         
         if messagebox.askyesno("Confirm", "Are you sure you want to delete this user?"):
@@ -112,9 +112,9 @@ class userswindow:
                 self.user_manager.delete_user(user_id)
                 self.load_users()
                 self.clear_form()
-                messagebox.showinfo("Success", "User deleted successfully!")
+                messagebox.showinfo("Completed!", "User deleted!")
             except Exception as e:
-                messagebox.showerror("Error", str(e))
+                messagebox.showerror("Error!!", str(e))
     
     def on_select(self, event):
         selected = self.tree.selection()

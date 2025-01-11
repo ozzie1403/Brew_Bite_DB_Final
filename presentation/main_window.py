@@ -6,7 +6,7 @@ from business.inventory_manager import inventorymanager
 from business.sales_manager import salesmanager
 from presentation.inventory_window import InventoryWindow
 from presentation.sales_window import saleswindow
-from presentation.reports_window import ReportsWindow
+from presentation.reports_window import Reportswindow
 from presentation.users_window import userswindow
 
 class mainwindow:
@@ -46,22 +46,22 @@ class mainwindow:
             self.current_user = user
             self.show_main_menu()
         else:
-            messagebox.showerror("Error", "Invalid username or password")
+            messagebox.showerror("Error", "Invalid username/password")
     
     def show_register(self):
         register_window = tk.Toplevel(self.root)
-        register_window.title("Register New User")
+        register_window.title("Register new user")
         register_window.geometry("300x200")
         
         ttk.Label(register_window, text="Username:").pack(pady=5)
         username_var = tk.StringVar()
         ttk.Entry(register_window, textvariable=username_var).pack(pady=5)
         
-        ttk.Label(register_window, text="Password:").pack(pady=5)
+        ttk.Label(register_window, text="Password;").pack(pady=5)
         password_var = tk.StringVar()
         ttk.Entry(register_window, textvariable=password_var, show="*").pack(pady=5)
         
-        ttk.Label(register_window, text="Email:").pack(pady=5)
+        ttk.Label(register_window, text="email:").pack(pady=5)
         email_var = tk.StringVar()
         ttk.Entry(register_window, textvariable=email_var).pack(pady=5)
         
@@ -72,7 +72,7 @@ class mainwindow:
                     password_var.get(),
                     email_var.get()
                 )
-                messagebox.showinfo("Success", "User registered successfully!")
+                messagebox.showinfo("Success", "User registered successful")
                 register_window.destroy()
             except Exception as e:
                 messagebox.showerror("Error", str(e))
@@ -88,11 +88,11 @@ class mainwindow:
         ttk.Label(self.menu_frame, text=f"Welcome, {self.current_user.username}!").grid(row=0, column=0, columnspan=2, pady=10)
         
         buttons = [
-            ("Manage Users", self.show_users),
+            ("Manage users", self.show_users),
             ("Manage Inventory", self.show_inventory),
-            ("Record Sale", self.show_sales),
-            ("View Reports", self.show_reports),
-            ("Logout", self.logout)
+            ("Record sale", self.show_sales),
+            ("View reports", self.show_reports),
+            ("sign out", self.logout)
         ]
         
         for i, (text, command) in enumerate(buttons, start=1):
@@ -108,7 +108,7 @@ class mainwindow:
         saleswindow(self.root, self.sales_manager, self.inventory_manager, self.current_user)
     
     def show_reports(self):
-        ReportsWindow(self.root, self.db, self.current_user)
+        Reportswindow(self.root, self.db, self.current_user)
     
     def logout(self):
         self.current_user = None
