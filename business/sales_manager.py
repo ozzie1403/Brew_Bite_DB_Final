@@ -1,13 +1,11 @@
 from datetime import datetime
 from database.models import Sale, SaleItem, Inventory
 
-
 class SalesManager:
     def __init__(self, db_handler):
         self.db = db_handler
     
     def create_sale(self, user_id, items):
-        # items should be a list of tuples: [(item_id, quantity), ...]
         total_amount = 0
         sale = Sale(
             user_id=user_id,

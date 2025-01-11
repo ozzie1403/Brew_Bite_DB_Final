@@ -9,8 +9,7 @@ class UsersWindow:
         
         self.user_manager = user_manager
         self.current_user = current_user
-        
-        # Create frames
+
         self.list_frame = ttk.Frame(self.window, padding="10")
         self.list_frame.grid(row=0, column=0, sticky="nsew")
         
@@ -37,22 +36,18 @@ class UsersWindow:
         self.tree.configure(yscrollcommand=scrollbar.set)
     
     def setup_user_form(self):
-        # Username
         ttk.Label(self.form_frame, text="Username:").grid(row=0, column=0, pady=5)
         self.username_var = tk.StringVar()
         ttk.Entry(self.form_frame, textvariable=self.username_var).grid(row=0, column=1, pady=5)
         
-        # Password
         ttk.Label(self.form_frame, text="Password:").grid(row=1, column=0, pady=5)
         self.password_var = tk.StringVar()
         ttk.Entry(self.form_frame, textvariable=self.password_var, show="*").grid(row=1, column=1, pady=5)
         
-        # Email
         ttk.Label(self.form_frame, text="Email:").grid(row=2, column=0, pady=5)
         self.email_var = tk.StringVar()
         ttk.Entry(self.form_frame, textvariable=self.email_var).grid(row=2, column=1, pady=5)
-        
-        # Buttons
+
         ttk.Button(self.form_frame, text="Add User", command=self.add_user).grid(row=3, column=0, pady=10)
         ttk.Button(self.form_frame, text="Update User", command=self.update_user).grid(row=3, column=1, pady=10)
         ttk.Button(self.form_frame, text="Delete User", command=self.delete_user).grid(row=3, column=2, pady=10)
@@ -91,9 +86,9 @@ class UsersWindow:
             email = self.email_var.get()
             password = self.password_var.get()
             
-            if password:  # Only update password if provided
+            if password:
                 self.user_manager.update_user_password(user_id, password)
-            if email:  # Only update email if provided
+            if email:
                 self.user_manager.update_user_email(user_id, email)
             
             self.load_users()
@@ -127,7 +122,7 @@ class UsersWindow:
             user = self.tree.item(selected[0])['values']
             self.username_var.set(user[1])
             self.email_var.set(user[2])
-            self.password_var.set('')  # Clear password field for security
+            self.password_var.set('') 
     
     def clear_form(self):
         self.username_var.set('')

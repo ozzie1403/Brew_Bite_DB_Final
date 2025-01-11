@@ -17,11 +17,9 @@ class SalesWindow:
         self.load_inventory()
     
     def setup_ui(self):
-        # Left panel - Inventory
         self.inventory_frame = ttk.LabelFrame(self.window, text="Available Items", padding="10")
         self.inventory_frame.grid(row=0, column=0, sticky="nsew", padx=5, pady=5)
         
-        # Right panel - Cart
         self.cart_frame = ttk.LabelFrame(self.window, text="Shopping Cart", padding="10")
         self.cart_frame.grid(row=0, column=1, sticky="nsew", padx=5, pady=5)
         
@@ -39,7 +37,6 @@ class SalesWindow:
         
         self.inventory_tree.grid(row=0, column=0, columnspan=2, sticky="nsew")
         
-        # Quantity entry and Add to Cart button
         ttk.Label(self.inventory_frame, text="Quantity:").grid(row=1, column=0, pady=5)
         self.quantity_var = tk.StringVar(value="1")
         ttk.Entry(self.inventory_frame, textvariable=self.quantity_var).grid(row=1, column=1, pady=5)

@@ -5,7 +5,6 @@ import json
 
 from database.models import Sale, Inventory
 
-
 class ReportsWindow:
     def __init__(self, parent, db_handler, current_user):
         self.window = tk.Toplevel(parent)
@@ -18,7 +17,6 @@ class ReportsWindow:
         self.setup_ui()
     
     def setup_ui(self):
-        # Report type selection
         self.report_frame = ttk.LabelFrame(self.window, text="Generate Report", padding="10")
         self.report_frame.pack(fill=tk.X, padx=5, pady=5)
         
@@ -36,14 +34,12 @@ class ReportsWindow:
         
         ttk.Button(self.report_frame, text="Generate Report", command=self.generate_report).pack(pady=10)
         
-        # Report display
         self.display_frame = ttk.LabelFrame(self.window, text="Report Results", padding="10")
         self.display_frame.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
         
         self.report_text = tk.Text(self.display_frame, wrap=tk.WORD, width=80, height=20)
         self.report_text.pack(fill=tk.BOTH, expand=True)
-        
-        # Export button
+
         ttk.Button(self.window, text="Export Report", command=self.export_report).pack(pady=5)
     
     def generate_report(self):
@@ -143,13 +139,11 @@ class ReportsWindow:
         
         report = "Revenue Analysis (Last 30 Days)\n\n"
         
-        # Daily revenue
         daily_revenue = {}
         for sale in sales:
             date_str = sale.date.strftime('%Y-%m-%d')
             daily_revenue[date_str] = daily_revenue.get(date_str, 0) + sale.total_amount
         
-        # Calculate statistics
         total_revenue = sum(daily_revenue.values())
         avg_daily_revenue = total_revenue / len(daily_revenue) if daily_revenue else 0
         
@@ -170,7 +164,7 @@ class ReportsWindow:
         
         try:
             filename = f"report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
-            with open(filename, 'w') as f:
+            with open(filename, 'brew_and_bite') as f:
                 f.write(report_content)
             messagebox.showinfo("Success", f"Report exported to {filename}")
         except Exception as e:

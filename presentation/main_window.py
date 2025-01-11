@@ -14,8 +14,7 @@ class MainWindow:
         self.root = tk.Tk()
         self.root.title("Brew and Bite Café Management System")
         self.root.geometry("800x600")
-        
-        # Initialize database and business logic
+
         self.db = DatabaseHandler()
         self.user_manager = UserManager(self.db)
         self.inventory_manager = InventoryManager(self.db)

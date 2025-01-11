@@ -7,8 +7,7 @@ class InventoryWindow:
         self.window.title("Inventory Management")
         self.window.geometry("800x600")
         self.inventory_manager = inventory_manager
-        
-        # Create frames
+
         self.list_frame = ttk.Frame(self.window, padding="10")
         self.list_frame.grid(row=0, column=0, sticky="nsew")
         
@@ -35,22 +34,18 @@ class InventoryWindow:
         self.tree.configure(yscrollcommand=scrollbar.set)
     
     def setup_item_form(self):
-        # Item Name
         ttk.Label(self.form_frame, text="Item Name:").grid(row=0, column=0, pady=5)
         self.name_var = tk.StringVar()
         ttk.Entry(self.form_frame, textvariable=self.name_var).grid(row=0, column=1, pady=5)
-        
-        # Quantity
+
         ttk.Label(self.form_frame, text="Quantity:").grid(row=1, column=0, pady=5)
         self.quantity_var = tk.StringVar()
         ttk.Entry(self.form_frame, textvariable=self.quantity_var).grid(row=1, column=1, pady=5)
-        
-        # Cost
+
         ttk.Label(self.form_frame, text="Cost:").grid(row=2, column=0, pady=5)
         self.cost_var = tk.StringVar()
         ttk.Entry(self.form_frame, textvariable=self.cost_var).grid(row=2, column=1, pady=5)
-        
-        # Buttons
+
         ttk.Button(self.form_frame, text="Add New", command=self.add_item).grid(row=3, column=0, pady=10)
         ttk.Button(self.form_frame, text="Update", command=self.update_item).grid(row=3, column=1, pady=10)
         ttk.Button(self.form_frame, text="Delete", command=self.delete_item).grid(row=3, column=2, pady=10)
