@@ -1,24 +1,24 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
-from database.db_handler import DatabaseHandler
-from business.user_manager import UserManager
-from business.inventory_manager import InventoryManager
-from business.sales_manager import SalesManager
+from database.db_handler import mainsession
+from business.user_manager import usermanager
+from business.inventory_manager import inventorymanager
+from business.sales_manager import salesmanager
 from presentation.inventory_window import InventoryWindow
-from presentation.sales_window import SalesWindow
+from presentation.sales_window import saleswindow
 from presentation.reports_window import ReportsWindow
-from presentation.users_window import UsersWindow
+from presentation.users_window import userswindow
 
-class MainWindow:
+class mainwindow:
     def __init__(self):
         self.root = tk.Tk()
-        self.root.title("Brew and Bite Café Management System")
+        self.root.title("Brew & Bite cafe management system")
         self.root.geometry("800x600")
 
-        self.db = DatabaseHandler()
-        self.user_manager = UserManager(self.db)
-        self.inventory_manager = InventoryManager(self.db)
-        self.sales_manager = SalesManager(self.db)
+        self.db = mainsession()
+        self.user_manager = usermanager(self.db)
+        self.inventory_manager = inventorymanager(self.db)
+        self.sales_manager = salesmanager(self.db)
         
         self.current_user = None
         self.setup_login_frame()
@@ -99,13 +99,13 @@ class MainWindow:
             ttk.Button(self.menu_frame, text=text, command=command).grid(row=i, column=0, columnspan=2, pady=5)
     
     def show_users(self):
-        UsersWindow(self.root, self.user_manager, self.current_user)
+        userswindow(self.root, self.user_manager, self.current_user)
     
     def show_inventory(self):
         InventoryWindow(self.root, self.inventory_manager)
     
     def show_sales(self):
-        SalesWindow(self.root, self.sales_manager, self.inventory_manager, self.current_user)
+        saleswindow(self.root, self.sales_manager, self.inventory_manager, self.current_user)
     
     def show_reports(self):
         ReportsWindow(self.root, self.db, self.current_user)

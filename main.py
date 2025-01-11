@@ -1,5 +1,5 @@
-from presentation.main_window import MainWindow
+from presentation.main_window import mainwindow
 
 if __name__ == "__main__":
-    app = MainWindow()
+    app = mainwindow()
     app.run()

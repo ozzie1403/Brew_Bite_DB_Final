@@ -1,11 +1,11 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from database.models import Base
+from database.models import base
 
-class DatabaseHandler:
+class mainsession:
     def __init__(self):
         self.engine = create_engine('sqlite:///cafe.db')
-        Base.metadata.create_all(self.engine)
+        base.metadata.create_all(self.engine)
         Session = sessionmaker(bind=self.engine)
         self.session = Session()
     

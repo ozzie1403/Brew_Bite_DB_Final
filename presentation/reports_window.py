@@ -2,8 +2,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 from datetime import datetime, timedelta
 import json
-
-from database.models import Sale, Inventory
+from database.models import sale, inventory
 
 class ReportsWindow:
     def __init__(self, parent, db_handler, current_user):
@@ -60,9 +59,9 @@ class ReportsWindow:
         except Exception as e:
             messagebox.showerror("Error", f"Failed to generate report: {str(e)}")
     
-    def generate_daily_sales_report(self):
+    def generate_daily_sales_report(self, sale):
         today = datetime.now().date()
-        sales = self.db.session.query(Sale).filter(Sale.date == today).all()
+        sales = self.db.session.query(sale).filter(sale.date == today).all()
         
         report = f"Daily Sales Report - {today}\n\n"
         total_revenue = 0
@@ -77,10 +76,10 @@ class ReportsWindow:
         report += f"\nTotal Daily Revenue: £{total_revenue:.2f}"
         self.report_text.insert(tk.END, report)
     
-    def generate_monthly_sales_report(self):
+    def generate_monthly_sales_report(self, sale):
         today = datetime.now().date()
         first_day = today.replace(day=1)
-        sales = self.db.session.query(Sale).filter(Sale.date >= first_day).all()
+        sales = self.db.session.query(sale).filter(sale.date >= first_day).all()
         
         report = f"Monthly Sales Report - {today.strftime('%B %Y')}\n\n"
         total_revenue = 0
@@ -97,8 +96,8 @@ class ReportsWindow:
         report += f"\nTotal Monthly Revenue: £{total_revenue:.2f}"
         self.report_text.insert(tk.END, report)
     
-    def generate_inventory_report(self):
-        inventory = self.db.session.query(Inventory).all()
+    def generate_inventory_report(self, inventory):
+        inventory = self.db.session.query(inventory).all()
         
         report = "Current Inventory Status\n\n"
         total_value = 0
@@ -117,7 +116,7 @@ class ReportsWindow:
     
     def generate_low_stock_report(self):
         LOW_STOCK_THRESHOLD = 10
-        low_stock = self.db.session.query(Inventory).filter(Inventory.quantity < LOW_STOCK_THRESHOLD).all()
+        low_stock = self.db.session.query(inventory).filter(inventory.quantity < LOW_STOCK_THRESHOLD).all()
         
         report = "Low Stock Alert Report\n\n"
         
@@ -132,10 +131,10 @@ class ReportsWindow:
         
         self.report_text.insert(tk.END, report)
     
-    def generate_revenue_analysis(self):
+    def generate_revenue_analysis(self, sale):
         today = datetime.now().date()
         last_month = today - timedelta(days=30)
-        sales = self.db.session.query(Sale).filter(Sale.date >= last_month).all()
+        sales = self.db.session.query(sale).filter(sale.date >= last_month).all()
         
         report = "Revenue Analysis (Last 30 Days)\n\n"
         

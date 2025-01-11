@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 from datetime import datetime
 
-class SalesWindow:
+class saleswindow:
     def __init__(self, parent, sales_manager, inventory_manager, current_user):
         self.window = tk.Toplevel(parent)
         self.window.title("Sales Management")
@@ -17,10 +17,10 @@ class SalesWindow:
         self.load_inventory()
     
     def setup_ui(self):
-        self.inventory_frame = ttk.LabelFrame(self.window, text="Available Items", padding="10")
+        self.inventory_frame = ttk.LabelFrame(self.window, text="Items available", padding="10")
         self.inventory_frame.grid(row=0, column=0, sticky="nsew", padx=5, pady=5)
         
-        self.cart_frame = ttk.LabelFrame(self.window, text="Shopping Cart", padding="10")
+        self.cart_frame = ttk.LabelFrame(self.window, text="Shopping cart", padding="10")
         self.cart_frame.grid(row=0, column=1, sticky="nsew", padx=5, pady=5)
         
         self.setup_inventory_list()
@@ -128,4 +128,4 @@ class SalesWindow:
             self.clear_cart()
             self.load_inventory()
         except Exception as e:
-            messagebox.showerror("Error", str(e))
+            messagebox.showerror("Sorry! process failed!", str(e))

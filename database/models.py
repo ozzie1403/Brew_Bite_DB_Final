@@ -4,9 +4,9 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from datetime import datetime
 
-Base = sqlalchemy.orm.declarative_base()
+base = sqlalchemy.orm.declarative_base()
 
-class User(Base):
+class user(base):
     __tablename__ = 'users'
     
     user_id = Column(Integer, primary_key=True, autoincrement=True)
@@ -18,7 +18,7 @@ class User(Base):
     sales = relationship("Sale", back_populates="user")
     reports = relationship("FinancialReport", back_populates="user")
 
-class Expense(Base):
+class expense(base):
     __tablename__ = 'expenses'
     
     expense_id = Column(Integer, primary_key=True, autoincrement=True)
@@ -30,7 +30,7 @@ class Expense(Base):
     
     user = relationship("User", back_populates="expenses")
 
-class Inventory(Base):
+class inventory(base):
     __tablename__ = 'inventory'
     
     item_id = Column(Integer, primary_key=True, autoincrement=True)
@@ -40,7 +40,7 @@ class Inventory(Base):
     
     sales_items = relationship("SaleItem", back_populates="inventory_item")
 
-class Sale(Base):
+class sale(base):
     __tablename__ = 'sales'
     
     sale_id = Column(Integer, primary_key=True, autoincrement=True)
@@ -51,7 +51,7 @@ class Sale(Base):
     user = relationship("User", back_populates="sales")
     sale_items = relationship("SaleItem", back_populates="sale")
 
-class SaleItem(Base):
+class sale_item(base):
     __tablename__ = 'sales_items'
     
     sale_item_id = Column(Integer, primary_key=True, autoincrement=True)
@@ -62,7 +62,7 @@ class SaleItem(Base):
     sale = relationship("Sale", back_populates="sale_items")
     inventory_item = relationship("Inventory", back_populates="sales_items")
 
-class FinancialReport(Base):
+class financialreport(base):
     __tablename__ = 'financial_reports'
     
     report_id = Column(Integer, primary_key=True, autoincrement=True)
