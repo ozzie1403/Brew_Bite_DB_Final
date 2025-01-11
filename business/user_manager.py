@@ -2,7 +2,6 @@ from database.models import User
 import hashlib
 import os
 
-
 class UserManager:
     def __init__(self, db_handler):
         # Initialize the UserManager with the database session.

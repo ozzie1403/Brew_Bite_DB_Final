@@ -9,16 +9,14 @@ from presentation.sales_window import SalesWindow
 from presentation.reports_window import ReportsWindow
 from presentation.users_window import UsersWindow
 
-
 class MainWindow:
     def __init__(self):
         """
         Initializes the main window of the Brew and Bite Café Management System.
         Sets up the necessary database connections, user managers, and initial login screen.
         """
-        # Initialize the main application window
         self.root = tk.Tk()
-        self.root.title("Brew and Bite Café Management System")
+        self.root.title("Brew & Bite Café Management System")
         self.root.geometry("800x600")
 
         # Set up database and business logic handlers

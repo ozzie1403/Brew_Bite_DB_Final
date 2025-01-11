@@ -1,6 +1,5 @@
 from database.models import Inventory
 
-
 class InventoryManager:
     def __init__(self, db_session):
         # Initialize the InventoryManager with the database session.

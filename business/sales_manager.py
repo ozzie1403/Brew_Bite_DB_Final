@@ -1,7 +1,6 @@
 from datetime import datetime
 from database.models import Sale, SaleItem, Inventory
 
-
 class SalesManager:
     def __init__(self, db_handler):
         # Initialize the SalesManager with the database handler (session).
