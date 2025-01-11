@@ -1,9 +1,10 @@
+import sqlalchemy
 from sqlalchemy import create_engine, Column, Integer, String, Float, Date, ForeignKey, Text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from datetime import datetime
 
-Base = declarative_base()
+Base = sqlalchemy.orm.declarative_base()
 
 class User(Base):
     __tablename__ = 'users'
