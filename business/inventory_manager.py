@@ -1,26 +1,69 @@
-from database.models import inventory #importing inventory class
+from database.models import Inventory
 
-class inventorymanager:
+
+class InventoryManager:
     def __init__(self, db_session):
+        # Initialize the InventoryManager with the database session.
         self.db = db_session
-    
-    def add_item(self, item_name: str, quantity: int, cost: float):
-        new_item = inventory(
+        print("Inventory Manager initialized successfully!")
+
+    def add_item(self, item_name, quantity, cost):
+        # Add a new item to the inventory.
+        if quantity < 0 or cost < 0:
+            raise ValueError("Quantity and cost must be non-negative values.")
+
+        new_item = Inventory(
             item_name=item_name,
             quantity=quantity,
             cost=cost
-            )
-        self.db.session.add(new_item)
-        self.db.session.commit()
-        return new_item
-    
-    def quantity_update(self, item_id: int, new_quantity: float):
-        item = self.db.session.query(inventory).filter_by(item_id=item_id).first()
+        )
+        try:
+            self.db.session.add(new_item)
+            self.db.session.commit()
+            print(f"Item '{item_name}' added successfully!")
+            return new_item
+        except Exception as e:
+            self.db.session.rollback()
+            print(f"Error while adding item: {e}")
+            return None
+
+    def update_quantity(self, item_id, new_quantity):
+        # Update the quantity of an existing item by item ID.
+        if new_quantity < 0:
+            raise ValueError("Quantity must be a non-negative value.")
+
+        item = self.db.session.query(Inventory).filter_by(item_id=item_id).first()
+
         if item:
             item.quantity = new_quantity
-            self.db.session.commit()
-            return True
-        return False
-    
+            try:
+                self.db.session.commit()
+                print(f"Quantity of item '{item.item_name}' updated to {new_quantity}.")
+                return True
+            except Exception as e:
+                self.db.session.rollback()
+                print(f"Error while updating quantity: {e}")
+                return False
+        else:
+            print(f"Item with ID {item_id} not found.")
+            return False
+
     def get_all_items(self):
-        return self.db.session.query(inventory).all()
+        # Retrieve and return all items in the inventory.
+        items = self.db.session.query(Inventory).all()
+        if items:
+            print(f"Retrieved {len(items)} item(s) from inventory.")
+            return items
+        else:
+            print("No items found in inventory.")
+            return []
+
+    def get_item_by_name(self, item_name):
+        # Retrieve an item by its name.
+        item = self.db.session.query(Inventory).filter_by(item_name=item_name).first()
+        if item:
+            print(f"Item found: {item_name}")
+            return item
+        else:
+            print(f"Item '{item_name}' not found.")
+            return None
