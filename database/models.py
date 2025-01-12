@@ -3,100 +3,88 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from datetime import datetime
 
-# The base class that will be used for all models
+# base class that'll be used for all models
 Base = declarative_base()
 
 class User(Base):
-    """
-    Represents a user in the system. Users can have multiple expenses, sales, and financial reports.
-    """
     __tablename__ = 'users'
 
-    # Unique ID for the user (Primary Key)
+    # Unique ID user (Primary Key)
     user_id = Column(Integer, primary_key=True, autoincrement=True)
 
-    # Username chosen by the user (must be unique)
+    # username chose (has to be unique)
     username = Column(String(50), unique=True, nullable=False)
 
-    # Hashed password for authentication (stored securely)
+    # Hashed password for authentication
     password = Column(String(255), nullable=False)
 
-    # Email address (must be unique for each user)
+    # Email add
     email = Column(String(100), unique=True, nullable=False)
 
-    # Relationship with the Expense model (a user can have many expenses)
+    # relationship with the expense model
     expenses = relationship("Expense", back_populates="user")
 
-    # Relationship with the Sale model (a user can have many sales)
+    # relationship with the sale model (a user can have many sales)
     sales = relationship("Sale", back_populates="user")
 
-    # Relationship with the FinancialReport model (a user can have many reports)
+    # relationship with the financial report model
     reports = relationship("FinancialReport", back_populates="user")
 
 
 class Expense(Base):
-    """
-    Represents an expense that a user records. Each expense is linked to a specific user.
-    """
     __tablename__ = 'expenses'
 
-    # Unique ID for the expense (Primary Key)
+    # Unique ID expensez (primary key)
     expense_id = Column(Integer, primary_key=True, autoincrement=True)
 
-    # Link to the user who recorded the expense (Foreign Key)
+    # Link to the user who recorded the expense (foreign key)
     user_id = Column(Integer, ForeignKey('users.user_id'))
 
-    # Date the expense occurred
+    # date the expense occurred
     date = Column(Date, nullable=False)
 
-    # Amount spent on this expense
+    # amount spent
     amount = Column(Float, nullable=False)
 
-    # Category of the expense (e.g., Food, Rent, etc.)
+    # category of the expense
     category = Column(String(50), nullable=False)
 
-    # Optional description for more details on the expense
     description = Column(Text)
 
-    # Relationship to the User model (each expense belongs to one user)
+    # relationship to the user model
     user = relationship("User", back_populates="expenses")
 
 
 class Inventory(Base):
-    """
-    Represents an item in the inventory. Each item has a name, quantity, and cost.
-    """
+
     __tablename__ = 'inventory'
 
-    # Unique ID for the item (Primary Key)
+    #  (primary key unique id)
     item_id = Column(Integer, primary_key=True, autoincrement=True)
 
-    # Name of the inventory item (must be unique)
+    # name of the inventory item
     item_name = Column(String(100), unique=True, nullable=False)
 
-    # Quantity of the item available in the inventory
+    # quantity of the item available in the inventory
     quantity = Column(Integer, nullable=False)
 
-    # Cost of the item
+    # cost of the item
     cost = Column(Float, nullable=False)
 
-    # Relationship with the SaleItem model (items sold are linked to inventory)
+    # relationship with the sale item model
     sales_items = relationship("SaleItem", back_populates="inventory_item")
 
 
 class Sale(Base):
-    """
-    Represents a sale transaction made by a user. A sale can consist of multiple items.
-    """
     __tablename__ = 'sales'
 
-    # Unique ID for the sale (Primary Key)
+    # unique ID  (Primary Key)
     sale_id = Column(Integer, primary_key=True, autoincrement=True)
 
-    # Link to the user who made the sale (Foreign Key)
+    # establishes (Foreign Key)
     user_id = Column(Integer, ForeignKey('users.user_id'))
 
-    # Date the sale occurred
+    # date the sale
     date = Column(Date, nullable=False)
 
     # Total amount of the sale
@@ -107,7 +95,6 @@ class Sale(Base):
 
     # Relationship to the SaleItem model (a sale can have multiple items)
     sale_items = relationship("SaleItem", back_populates="sale")
-
 
 class SaleItem(Base):
     """

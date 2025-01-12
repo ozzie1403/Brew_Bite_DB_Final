@@ -1,6 +1,5 @@
 from database.models import Inventory
 
-
 class InventoryManager:
     def __init__(self, db_session):
         self.db = db_session
@@ -40,6 +39,24 @@ class InventoryManager:
             except Exception as e:
                 self.db.session.rollback()
                 print(f"Error while updating quantity: {e}")
+                return False
+        else:
+            print(f"Item with ID {item_id} not found.")
+            return False
+
+    def delete_item(self, item_id):
+        # Find the item in the database
+        item = self.db.session.query(Inventory).filter_by(item_id=item_id).first()
+
+        if item:
+            try:
+                self.db.session.delete(item)  # Delete the item from the database
+                self.db.session.commit()  # Commit the transaction
+                print(f"Item with ID {item_id} deleted successfully.")
+                return True
+            except Exception as e:
+                self.db.session.rollback()  # Rollback in case of an error
+                print(f"Error while deleting item: {e}")
                 return False
         else:
             print(f"Item with ID {item_id} not found.")

@@ -3,41 +3,32 @@ from tkinter import ttk, messagebox
 
 class InventoryWindow:
     def __init__(self, parent, inventory_manager):
-        """
-        Initialize the inventory management window.
-        Creates the layout, sets up inventory display, and prepares the item form.
-        """
-        # Create a new top-level window
         self.window = tk.Toplevel(parent)
         self.window.title("Inventory Management")
         self.window.geometry("800x600")
 
-        # Store the inventory manager to interact with inventory data
+        # inventory manager stored
         self.inventory_manager = inventory_manager
 
-        # Create frames to organize the layout
+        # frames created
         self.list_frame = ttk.Frame(self.window, padding="10")
         self.list_frame.grid(row=0, column=0, sticky="nsew")
 
         self.form_frame = ttk.Frame(self.window, padding="10")
         self.form_frame.grid(row=0, column=1, sticky="nsew")
 
-        # Setup components
+        # setup components
         self.setup_inventory_list()
         self.setup_item_form()
         self.load_inventory()
 
     def setup_inventory_list(self):
-        """
-        Set up the treeview to display the list of inventory items.
-        Defines columns for Item ID, Name, Quantity, and Cost.
-        """
         columns = ('ID', 'Name', 'Quantity', 'Cost')
 
-        # Create the treeview widget
+        # treeview widget integrated
         self.tree = ttk.Treeview(self.list_frame, columns=columns, show='headings')
 
-        # Define column headers and their widths
+        # defined column headers and their widths
         for col in columns:
             self.tree.heading(col, text=col)
             self.tree.column(col, width=100)
@@ -45,21 +36,17 @@ class InventoryWindow:
         self.tree.grid(row=0, column=0, sticky="nsew")
         self.tree.bind('<<TreeviewSelect>>', self.on_select)
 
-        # Add vertical scrollbar for the treeview
         scrollbar = ttk.Scrollbar(self.list_frame, orient="vertical", command=self.tree.yview)
         scrollbar.grid(row=0, column=1, sticky="ns")
         self.tree.configure(yscrollcommand=scrollbar.set)
 
     def setup_item_form(self):
-        """
-        Set up the form fields and buttons to add, update, or delete inventory items.
-        """
-        # Item Name field
+        # item name field
         ttk.Label(self.form_frame, text="Item Name:").grid(row=0, column=0, pady=5)
         self.name_var = tk.StringVar()
         ttk.Entry(self.form_frame, textvariable=self.name_var).grid(row=0, column=1, pady=5)
 
-        # Quantity field
+        # quantity
         ttk.Label(self.form_frame, text="Quantity:").grid(row=1, column=0, pady=5)
         self.quantity_var = tk.StringVar()
         ttk.Entry(self.form_frame, textvariable=self.quantity_var).grid(row=1, column=1, pady=5)
@@ -126,10 +113,6 @@ class InventoryWindow:
             messagebox.showerror("Error", f"Failed to update item: {e}")
 
     def delete_item(self):
-        """
-        Delete a selected item from the inventory.
-        Confirms with the user before deleting.
-        """
         selected = self.tree.selection()
         if not selected:
             messagebox.showwarning("Warning", "Please select an item to delete")

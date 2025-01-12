@@ -11,31 +11,24 @@ from presentation.users_window import UsersWindow
 
 class MainWindow:
     def __init__(self):
-        """
-        Initializes the main window of the Brew and Bite Café Management System.
-        Sets up the necessary database connections, user managers, and initial login screen.
-        """
-        # Initialize the main application window
+        # Initializer
         self.root = tk.Tk()
         self.root.title("Brew and Bite Café Management System")
         self.root.geometry("800x600")
 
-        # Set up database and business logic handlers
+        # database setup
         self.db = DatabaseHandler()
         self.user_manager = UserManager(self.db)
         self.inventory_manager = InventoryManager(self.db)
         self.sales_manager = SalesManager(self.db)
 
-        # Store the currently logged-in user
+        # stores user
         self.current_user = None
 
-        # Start with the login screen
+        # login screen
         self.setup_login_frame()
 
     def setup_login_frame(self):
-        """
-        Creates the login screen where users can enter their credentials to log in.
-        """
         self.login_frame = ttk.Frame(self.root, padding="20")
         self.login_frame.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
 
@@ -49,7 +42,7 @@ class MainWindow:
         self.password_var = tk.StringVar()
         ttk.Entry(self.login_frame, textvariable=self.password_var, show="*").grid(row=1, column=1, pady=5)
 
-        # Login button
+        # ogin button
         ttk.Button(self.login_frame, text="Login", command=self.login).grid(row=2, column=0, columnspan=2, pady=10)
 
         # Register button for new users

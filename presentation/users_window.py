@@ -3,14 +3,6 @@ from tkinter import ttk, messagebox
 
 class UsersWindow:
     def __init__(self, parent, user_manager, current_user):
-        """
-        Initializes the user management window where administrators can manage users.
-
-        Parameters:
-        - parent: The parent Tkinter window.
-        - user_manager: The manager responsible for handling user operations (e.g., create, update, delete).
-        - current_user: The currently logged-in user.
-        """
         self.window = tk.Toplevel(parent)
         self.window.title("User Management")
         self.window.geometry("800x600")
@@ -18,7 +10,7 @@ class UsersWindow:
         self.user_manager = user_manager
         self.current_user = current_user
 
-        # Create frames for layout
+        # Ly
         self.list_frame = ttk.Frame(self.window, padding="10")
         self.list_frame.grid(row=0, column=0, sticky="nsew")
 
