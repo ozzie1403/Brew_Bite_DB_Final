@@ -3,6 +3,7 @@ from database.models import Sale, SaleItem, Inventory
 
 
 class SalesManager:
+
     def __init__(self, db_handler):
         self.db = db_handler
         print("Sales Manager is ready")

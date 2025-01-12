@@ -6,6 +6,7 @@ import json
 from database.models import Sale, Inventory
 
 class ReportsWindow:
+
     def __init__(self, parent, db_handler, current_user):
         self.window = tk.Toplevel(parent)
         self.window.title("Financial Reports")
@@ -62,10 +63,7 @@ class ReportsWindow:
             messagebox.showerror("Error", f"Failed to generate report: {str(e)}")
 
     def generate_daily_sales_report(self):
-        """
-        Generates and displays the daily sales report, showing the total revenue
-        and details of each sale made today.
-        """
+
         today = datetime.now().date()
         sales = self.db.session.query(Sale).filter(Sale.date == today).all()
 
@@ -83,10 +81,7 @@ class ReportsWindow:
         self.report_text.insert(tk.END, report)
 
     def generate_monthly_sales_report(self):
-        """
-        Generates and displays the monthly sales report, showing daily sales totals
-        for the current month and the total revenue for the month.
-        """
+
         today = datetime.now().date()
         first_day = today.replace(day=1)
         sales = self.db.session.query(Sale).filter(Sale.date >= first_day).all()
@@ -107,10 +102,7 @@ class ReportsWindow:
         self.report_text.insert(tk.END, report)
 
     def generate_inventory_report(self):
-        """
-        Generates and displays the current inventory status report, including the
-        quantity, unit cost, and total value of each inventory item.
-        """
+
         inventory = self.db.session.query(Inventory).all()
 
         report = "Current Inventory Status\n\n"
@@ -129,10 +121,7 @@ class ReportsWindow:
         self.report_text.insert(tk.END, report)
 
     def generate_low_stock_report(self):
-        """
-        Generates and displays the low stock alert report, showing inventory items
-        that are below the predefined low stock threshold.
-        """
+
         LOW_STOCK_THRESHOLD = 10
         low_stock = self.db.session.query(Inventory).filter(Inventory.quantity < LOW_STOCK_THRESHOLD).all()
 
@@ -150,10 +139,7 @@ class ReportsWindow:
         self.report_text.insert(tk.END, report)
 
     def generate_revenue_analysis(self):
-        """
-        Generates and displays a revenue analysis for the last 30 days, including
-        daily revenue breakdown, total revenue, and average daily revenue.
-        """
+
         today = datetime.now().date()
         last_month = today - timedelta(days=30)
         sales = self.db.session.query(Sale).filter(Sale.date >= last_month).all()
@@ -180,10 +166,7 @@ class ReportsWindow:
         self.report_text.insert(tk.END, report)
 
     def export_report(self):
-        """
-        Exports the currently displayed report to a text file.
-        The file is named with the current timestamp to ensure uniqueness.
-        """
+
         report_content = self.report_text.get(1.0, tk.END)
         if not report_content.strip():
             messagebox.showwarning("Warning", "No report to export")

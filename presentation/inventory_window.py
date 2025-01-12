@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 
 class InventoryWindow:
+
     def __init__(self, parent, inventory_manager):
         self.window = tk.Toplevel(parent)
         self.window.title("Inventory Management")
@@ -41,6 +42,7 @@ class InventoryWindow:
         self.tree.configure(yscrollcommand=scrollbar.set)
 
     def setup_item_form(self):
+
         # item name field
         ttk.Label(self.form_frame, text="Item Name:").grid(row=0, column=0, pady=5)
         self.name_var = tk.StringVar()
@@ -62,9 +64,7 @@ class InventoryWindow:
         ttk.Button(self.form_frame, text="Delete", command=self.delete_item).grid(row=3, column=2, pady=10)
 
     def load_inventory(self):
-        """
-        Load the inventory from the manager and display it in the treeview.
-        """
+
         # Clear the existing items in the treeview
         for item in self.tree.get_children():
             self.tree.delete(item)
@@ -74,10 +74,7 @@ class InventoryWindow:
             self.tree.insert('', 'end', values=(item.item_id, item.item_name, item.quantity, item.cost))
 
     def add_item(self):
-        """
-        Add a new item to the inventory.
-        Collects input values, validates them, and adds the item.
-        """
+
         try:
             name = self.name_var.get()
             quantity = int(self.quantity_var.get())
@@ -92,10 +89,7 @@ class InventoryWindow:
             messagebox.showerror("Error", f"Failed to add item: {e}")
 
     def update_item(self):
-        """
-        Update an existing item's quantity.
-        The item to update is selected from the treeview.
-        """
+
         selected = self.tree.selection()
         if not selected:
             messagebox.showwarning("Warning", "Please select an item to update")
@@ -129,9 +123,7 @@ class InventoryWindow:
                 messagebox.showerror("Error", f"Failed to delete item: {e}")
 
     def on_select(self, event):
-        """
-        When an item is selected from the inventory list, its details are populated into the form.
-        """
+
         selected = self.tree.selection()
         if selected:
             item = self.tree.item(selected[0])['values']
@@ -140,9 +132,7 @@ class InventoryWindow:
             self.cost_var.set(item[3])
 
     def clear_form(self):
-        """
-        Clears the form input fields after an action (add, update, or delete).
-        """
+
         self.name_var.set('')
         self.quantity_var.set('')
         self.cost_var.set('')

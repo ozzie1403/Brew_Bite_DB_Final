@@ -10,25 +10,21 @@ class UsersWindow:
         self.user_manager = user_manager
         self.current_user = current_user
 
-        # Ly
+
         self.list_frame = ttk.Frame(self.window, padding="10")
         self.list_frame.grid(row=0, column=0, sticky="nsew")
 
         self.form_frame = ttk.Frame(self.window, padding="10")
         self.form_frame.grid(row=0, column=1, sticky="nsew")
 
-        # Set up the user list and form sections
+        # user list setup
         self.setup_users_list()
         self.setup_user_form()
 
-        # Load existing users into the list
+        # Loads existing users
         self.load_users()
 
     def setup_users_list(self):
-        """
-        Set up the treeview for displaying the list of users.
-        Users are displayed with their ID, username, and email.
-        """
         columns = ('ID', 'Username', 'Email')
         self.tree = ttk.Treeview(self.list_frame, columns=columns, show='headings')
 

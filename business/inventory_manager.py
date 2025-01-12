@@ -1,6 +1,7 @@
 from database.models import Inventory
 
 class InventoryManager:
+
     def __init__(self, db_session):
         self.db = db_session
         print("Inventory Manager initialized successfully!")
@@ -45,7 +46,6 @@ class InventoryManager:
             return False
 
     def delete_item(self, item_id):
-        # Find the item in the database
         item = self.db.session.query(Inventory).filter_by(item_id=item_id).first()
 
         if item:

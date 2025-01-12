@@ -10,6 +10,7 @@ from presentation.reports_window import ReportsWindow
 from presentation.users_window import UsersWindow
 
 class MainWindow:
+
     def __init__(self):
         # Initializer
         self.root = tk.Tk()
@@ -49,10 +50,7 @@ class MainWindow:
         ttk.Button(self.login_frame, text="Register", command=self.show_register).grid(row=3, column=0, columnspan=2)
 
     def login(self):
-        """
-        Handles the login process by verifying the user's credentials.
-        If valid, it proceeds to the main menu; otherwise, shows an error.
-        """
+
         username = self.username_var.get()
         password = self.password_var.get()
         user = self.user_manager.verify_user(username, password)
@@ -67,9 +65,7 @@ class MainWindow:
             messagebox.showerror("Error", "Invalid username or password")
 
     def show_register(self):
-        """
-        Opens the registration window where new users can create an account.
-        """
+
         register_window = tk.Toplevel(self.root)
         register_window.title("Register New User")
         register_window.geometry("300x200")
@@ -88,9 +84,7 @@ class MainWindow:
         ttk.Entry(register_window, textvariable=email_var).pack(pady=5)
 
         def register():
-            """
-            Handles the registration process, adding a new user to the system.
-            """
+
             try:
                 self.user_manager.create_user(
                     username_var.get(),
@@ -106,9 +100,7 @@ class MainWindow:
         ttk.Button(register_window, text="Register", command=register).pack(pady=10)
 
     def show_main_menu(self):
-        """
-        After successful login, displays the main menu with options to manage the system.
-        """
+
         self.login_frame.destroy()
 
         # Create the main menu frame
@@ -133,39 +125,27 @@ class MainWindow:
             ttk.Button(self.menu_frame, text=text, command=command).grid(row=i, column=0, columnspan=2, pady=5)
 
     def show_users(self):
-        """
-        Opens the user management window where users can be added, updated, or deleted.
-        """
+
         UsersWindow(self.root, self.user_manager, self.current_user)
 
     def show_inventory(self):
-        """
-        Opens the inventory management window where items can be added, updated, or deleted.
-        """
+
         InventoryWindow(self.root, self.inventory_manager)
 
     def show_sales(self):
-        """
-        Opens the sales window where sales transactions can be recorded.
-        """
+
         SalesWindow(self.root, self.sales_manager, self.inventory_manager, self.current_user)
 
     def show_reports(self):
-        """
-        Opens the reports window where financial and other system reports can be viewed.
-        """
+
         ReportsWindow(self.root, self.db, self.current_user)
 
     def logout(self):
-        """
-        Logs the user out, returns to the login screen.
-        """
+
         self.current_user = None
         self.menu_frame.destroy()
         self.setup_login_frame()
 
     def run(self):
-        """
-        Starts the main application loop for the window.
-        """
+
         self.root.mainloop()
