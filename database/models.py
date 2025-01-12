@@ -6,7 +6,6 @@ from datetime import datetime
 # The base class that will be used for all models
 Base = declarative_base()
 
-
 class User(Base):
     """
     Represents a user in the system. Users can have multiple expenses, sales, and financial reports.

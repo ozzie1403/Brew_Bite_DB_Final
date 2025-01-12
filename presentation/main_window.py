@@ -9,7 +9,6 @@ from presentation.sales_window import SalesWindow
 from presentation.reports_window import ReportsWindow
 from presentation.users_window import UsersWindow
 
-
 class MainWindow:
     def __init__(self):
         """

@@ -3,12 +3,10 @@ from database.models import Inventory
 
 class InventoryManager:
     def __init__(self, db_session):
-        # Initialize the InventoryManager with the database session.
         self.db = db_session
         print("Inventory Manager initialized successfully!")
 
     def add_item(self, item_name, quantity, cost):
-        # Add a new item to the inventory.
         if quantity < 0 or cost < 0:
             raise ValueError("Quantity and cost must be non-negative values.")
 
@@ -28,7 +26,6 @@ class InventoryManager:
             return None
 
     def update_quantity(self, item_id, new_quantity):
-        # Update the quantity of an existing item by item ID.
         if new_quantity < 0:
             raise ValueError("Quantity must be a non-negative value.")
 
@@ -49,7 +46,6 @@ class InventoryManager:
             return False
 
     def get_all_items(self):
-        # Retrieve and return all items in the inventory.
         items = self.db.session.query(Inventory).all()
         if items:
             print(f"Retrieved {len(items)} item(s) from inventory.")
@@ -59,7 +55,6 @@ class InventoryManager:
             return []
 
     def get_item_by_name(self, item_name):
-        # Retrieve an item by its name.
         item = self.db.session.query(Inventory).filter_by(item_name=item_name).first()
         if item:
             print(f"Item found: {item_name}")

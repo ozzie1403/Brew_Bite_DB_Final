@@ -2,7 +2,6 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 from datetime import datetime
 
-
 class SalesWindow:
     def __init__(self, parent, sales_manager, inventory_manager, current_user):
         """
